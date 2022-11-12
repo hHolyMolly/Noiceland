@@ -1,0 +1,36 @@
+{
+	"cards": [
+		{
+			"imageUrl": "img/page/medium/01.jpg",
+			"imageAlt": "little-09",
+			"label": "Photography",
+			"title": "Helmut Lang celebrates taxi drivers worldwide in latest campaign",
+			"strongBy": "by holymolly",
+			"animationDelay": "0s"
+		},
+		{
+			"imageUrl": "img/page/medium/03.jpg",
+			"imageAlt": "little-10",
+			"label": "Photography",
+			"title": "Thousands of previously unseen photographs by Andy Warhol will be made public this Autumn",
+			"strongBy": "by holymolly",
+			"animationDelay": "0.1s"
+		},
+		{
+			"imageUrl": "img/page/medium/04.jpg",
+			"imageAlt": "little-11",
+			"label": "Interactive Design",
+			"title": "London-based Yinka Ilori’s storytelling furniture",
+			"strongBy": "by holymolly",
+			"animationDelay": "0.2s"
+		},
+		{
+			"imageUrl": "img/page/medium/06.jpg",
+			"imageAlt": "little-12",
+			"label": "Architecture",
+			"title": "Suzanne Saroff’s meticulously arranged photographs alter perceptions",
+			"strongBy": "by holymolly",
+			"animationDelay": "0.3s"
+		}
+	]
+}
