@@ -1,44 +1,709 @@
-function mySpollers(){const a=document.querySelectorAll("[data-spollers]");if(0<a.length){function c(a,b=!1){a.forEach(a=>{a=b?a.item:a,b.matches||!b?(a.classList.add("_init"),e(a),a.addEventListener("click",f)):(a.classList.remove("_init"),e(a,!1),a.removeEventListener("click",f))})}function e(a,b=!0){const c=a.querySelectorAll("[data-spoller]");0<c.length&&c.forEach(a=>{b?(a.removeAttribute("tabindex"),!a.classList.contains("_active")&&(a.nextElementSibling.hidden=!0)):(a.setAttribute("tabindex","-1"),a.nextElementSibling.hidden=!1)})}function f(a){const b=a.target;if(b.hasAttribute("data-spoller")||b.closest("[data-spoller]")){const c=b.hasAttribute("data-spoller")?b:b.closest("[data-spoller]"),e=c.closest("[data-spollers]"),f=!!e.hasAttribute("data-one-spoller");e.querySelectorAll("._slide").length||(f&&!c.classList.contains("_active")&&g(e),c.classList.toggle("_active"),d(c.nextElementSibling,500)),a.preventDefault()}}function g(a){const c=a.querySelector("[data-spoller]._active");c&&(c.classList.remove("_active"),b(c.nextElementSibling,500))}const h=Array.from(a).filter(function(a){return!a.dataset.spollers.split(",")[0]});0<h.length&&c(h);const i=Array.from(a).filter(function(a){return a.dataset.spollers.split(",")[0]});if(0<i.length){const a=[];i.forEach(b=>{const c=b.dataset.spollers,d={},e=c.split(",");d.value=e[0],d.type=e[1]?e[1].trim():"max",d.item=b,a.push(d)});let b=a.map(function(a){return"("+a.type+"-width: "+a.value+"px),"+a.value+","+a.type});b=b.filter(function(a,b,c){return c.indexOf(a)===b}),b.forEach(b=>{const d=b.split(","),e=d[1],f=d[2],g=window.matchMedia(d[0]),h=a.filter(function(a){if(a.value===e&&a.type===f)return!0});g.addListener(function(){c(h,g)}),c(h,g)})}}let b=(a,b=500)=>{a.classList.contains("_slide")||(a.classList.add("_slide"),a.style.transitionProperty="height, margin, padding",a.style.transitionDuration=b+"ms",a.style.height=a.offsetHeight+"px",a.offsetHeight,a.style.overflow="hidden",a.style.height=0,a.style.paddingTop=0,a.style.paddingBottom=0,a.style.marginTop=0,a.style.marginBottom=0,window.setTimeout(()=>{a.hidden=!0,a.style.removeProperty("height"),a.style.removeProperty("padding-top"),a.style.removeProperty("padding-bottom"),a.style.removeProperty("margin-top"),a.style.removeProperty("margin-bottom"),a.style.removeProperty("overflow"),a.style.removeProperty("transition-duration"),a.style.removeProperty("transition-property"),a.classList.remove("_slide")},b))},c=(a,b=500)=>{if(!a.classList.contains("_slide")){a.classList.add("_slide"),a.hidden&&(a.hidden=!1);let c=a.offsetHeight;a.style.overflow="hidden",a.style.height=0,a.style.paddingTop=0,a.style.paddingBottom=0,a.style.marginTop=0,a.style.marginBottom=0,a.offsetHeight,a.style.transitionProperty="height, margin, padding",a.style.transitionDuration=b+"ms",a.style.height=c+"px",a.style.removeProperty("padding-top"),a.style.removeProperty("padding-bottom"),a.style.removeProperty("margin-top"),a.style.removeProperty("margin-bottom"),window.setTimeout(()=>{a.style.removeProperty("height"),a.style.removeProperty("overflow"),a.style.removeProperty("transition-duration"),a.style.removeProperty("transition-property"),a.classList.remove("_slide")},b)}},d=(a,d=500)=>a.hidden?c(a,d):b(a,d)}mySpollers();function myBurger(){if(document.getElementById("header-menu")){const a=document.querySelector(".header"),b=document.getElementById("menu-open"),c=document.getElementById("menu-content"),d=document.querySelector("body");if(b&&c&&a&&(b.addEventListener("click",function(){a.classList.toggle("_active"),c.classList.toggle("_active"),b.classList.toggle("_active"),d.classList.toggle("_lock-scroll")}),document.querySelector("[data-popup-open]"))){(function(){const b=document.querySelectorAll("[data-popup-open]");b.forEach(b=>{b.addEventListener("click",function(){a.classList.remove("_active"),c.classList.remove("_active"),burgerWrap.classList.remove("_active")})})})()}}}myBurger();function myForms(){const a=document.querySelectorAll("form");if(0<a.length){let b,c=0,d="This is a required field";a.forEach(a=>{function f(a,b){const c=b.target;if(!c.classList.contains("_invalid"))c.parentElement.querySelectorAll(".field__error").forEach(a=>{a.remove()});else if(1>c.parentElement.querySelectorAll(".field__error").length){const b=`
-							<div class="field__error field-error">
-								<span class="field-error__icon">!</span>
-								<div class="field-error__dropdown">
-									${a}
-								</div>
-							</div>
-							`;c.parentElement.insertAdjacentHTML("beforeEnd",b)}}function g(a){const b=a.target;b.classList.contains("_invalid")&&(b.classList.remove("_invalid"),b.parentElement.querySelectorAll(".field__error").forEach(a=>{a.remove()}))}function h(a){if(a.classList.contains("_required"))if(b=a.getAttribute("data-form-prompt"),(null===b||""===b)&&(b=`${d}`),!0===a.checked)a.classList.remove("_invalid"),a.parentElement.querySelectorAll(".field__error").forEach(a=>{a.remove()});else{a.classList.add("_invalid"),c++;let d=`${b}`;if(1>a.parentElement.querySelectorAll(".field__error").length){const b=`
-										<div class="field__error field-error">
-											<span class="field-error__icon">!</span>
-											<div class="field-error__dropdown">
-												${d}
-											</div>
-										</div>
-										`;a.parentElement.insertAdjacentHTML("beforeEnd",b)}}}function i(f){j.forEach(a=>{if(a.classList.contains("_required")){function e(){function d(a){return e.test(a)}const e=/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;d(a.value)?a.classList.remove("_invalid"):(a.classList.add("_invalid"),c++);let f=`${b}`;i(f)}function f(){const d=/^.{8,}$/,e=/^\D.*$/,f=/^[^-() /]*$/,g=/^.*[a-zA-Z]+.*$/;d.test(a.value)&&e.test(a.value)&&f.test(a.value)&&g.test(a.value)?a.classList.remove("_invalid"):(a.classList.add("_invalid"),c++);let h=`${b}`;i(h)}function g(){m.forEach(b=>{const d=/^[\d\+][\d\(\)\ -]{4,14}\d$/,e=d.test(b.value);e?a.classList.remove("_invalid"):(a.classList.add("_invalid"),c++)});let d=`${b}`;i(d)}function h(){2>a.value.length?(a.classList.add("_invalid"),c++):a.classList.remove("_invalid"),a.value.match(/^[ ]+$/)&&(a.classList.add("_invalid"),c++,a.value="")}function i(b){if(!a.classList.contains("_invalid"))a.parentElement.querySelectorAll(".field__error").forEach(a=>{a.remove()});else if(1>a.parentElement.querySelectorAll(".field__error").length){const c=`
-										<div class="field__error field-error">
-											<span class="field-error__icon">!</span>
-											<div class="field-error__dropdown">
-												${b}
-											</div>
-										</div>
-										`;a.parentElement.insertAdjacentHTML("beforeEnd",c)}}if(b=a.getAttribute("data-form-prompt"),(null===b||""===b)&&(b=`${d}`),h(),!a.classList.contains("_email")&&!a.classList.contains("_password")&&!a.classList.contains("_phone")&&!a.classList.contains("_name")){let a=`${b}`;i(a)}a.classList.contains("_email")&&e(),a.classList.contains("_password")&&f(),a.classList.contains("_phone")&&g()}}),k.forEach(a=>{if(a.classList.contains("_required"))if(b=a.getAttribute("data-form-prompt"),(null===b||""===b)&&(b=`${d}`),a.value.match(/^[ ]+$/)&&(a.classList.add("_invalid"),c++,a.value=""),2>a.value.length){a.classList.add("_invalid");let c=`${b}`;if(!a.classList.contains("_invalid"))a.parentElement.querySelectorAll(".field__error").forEach(a=>{a.remove()});else if(1>a.parentElement.querySelectorAll(".field__error").length){const b=`
-										<div class="field__error field-error">
-											<span class="field-error__icon">!</span>
-											<div class="field-error__dropdown">
-												${c}
-											</div>
-										</div>
-										`;a.parentElement.insertAdjacentHTML("beforeEnd",b)}}else a.classList.remove("_invalid")}),l.forEach(a=>{h(a)});const e=a.querySelectorAll("._invalid");1>e.length&&(c=0),0<c&&f.preventDefault()}const j=a.querySelectorAll("input"),k=a.querySelectorAll("textarea"),l=a.querySelectorAll("input[type=\"checkbox\"]"),m=a.querySelectorAll("input[type=\"tel\"]");a.classList.contains("_required")&&(a.addEventListener("submit",i),j.forEach(a=>{a.addEventListener("focus",g)}),k.forEach(a=>{a.addEventListener("focus",g)}),j.forEach(a=>{a.addEventListener("blur",function(g){const e=g.target;if(!e.classList.contains("_invalid")){if(e.classList.add("_invalid"),b=this.getAttribute("data-form-prompt"),(null===b||""===b)&&(b=`${d}`),a.value.match(/^[ ]+$/)&&(a.classList.add("_invalid"),c++,a.value=""),!e.classList.contains("_email")&&!e.classList.contains("_password")&&!e.classList.contains("_phone"))if(2>a.value.length){a.classList.add("_invalid");let c=`${b}`;f(c,g)}else a.classList.remove("_invalid");if(e.classList.contains("_email")){function c(a){return d.test(a)}const d=/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;if(!c(a.value)){a.classList.add("_invalid");let c=`${b}`;f(c,g)}else a.classList.remove("_invalid")}if(e.classList.contains("_password")){const c=/^.{8,}$/,d=/^\D.*$/,e=/^[^-() /]*$/,h=/^.*[a-zA-Z]+.*$/;if(c.test(a.value)&&d.test(a.value)&&e.test(a.value)&&h.test(a.value))a.classList.remove("_invalid");else{a.classList.add("_invalid");let c=`${b}`;f(c,g)}}if(e.classList.contains("_phone")){m.forEach(b=>{const c=/^[\d\+][\d\(\)\ -]{4,14}\d$/,d=c.test(b.value);d?a.classList.remove("_invalid"):a.classList.add("_invalid")});let c=`${b}`;f(c,g)}}})}),k.forEach(a=>{a.addEventListener("blur",function(f){const e=f.target;if(!e.classList.contains("_invalid")&&(b=this.getAttribute("data-form-prompt"),(null===b||""===b)&&(b=`${d}`),a.value.match(/^[ ]+$/)&&(a.classList.add("_invalid"),c++,a.value=""),2>a.value.length)){a.classList.add("_invalid");let c=`${b}`;if(!a.classList.contains("_invalid"))a.parentElement.querySelectorAll(".field__error").forEach(a=>{a.remove()});else if(1>a.parentElement.querySelectorAll(".field__error").length){const b=`
+//< " ПОДКЛЮЧЕНИЕ JS КОМПОНЕНТОВ " >=============================================================================================================>//
+
+function mySpollers() {
+	const spollersArray = document.querySelectorAll('[data-spollers]');
+
+	if (spollersArray.length > 0) {
+		// Получение обычных спойлеров
+		const spollersRegular = Array.from(spollersArray).filter(function (item, index, self) {
+			return !item.dataset.spollers.split(",")[0];
+		});
+		// Инициализация обычных спойлеров
+		if (spollersRegular.length > 0) {
+			initSpollers(spollersRegular);
+		}
+
+		// Получение спойлеров с медиа запросами
+		const spollersMedia = Array.from(spollersArray).filter(function (item, index, self) {
+			return item.dataset.spollers.split(",")[0];
+		});
+
+		// Инициализация спойлеров с медиа запросами
+		if (spollersMedia.length > 0) {
+			const breakpointsArray = [];
+			spollersMedia.forEach(item => {
+				const params = item.dataset.spollers;
+				const breakpoint = {};
+				const paramsArray = params.split(",");
+				breakpoint.value = paramsArray[0];
+				breakpoint.type = paramsArray[1] ? paramsArray[1].trim() : "max";
+				breakpoint.item = item;
+				breakpointsArray.push(breakpoint);
+			});
+
+			// Получаем уникальные брейкпоинты
+			let mediaQueries = breakpointsArray.map(function (item) {
+				return '(' + item.type + "-width: " + item.value + "px)," + item.value + ',' + item.type;
+			});
+			mediaQueries = mediaQueries.filter(function (item, index, self) {
+				return self.indexOf(item) === index;
+			});
+
+			// Работаем с каждым брейкпоинтом
+			mediaQueries.forEach(breakpoint => {
+				const paramsArray = breakpoint.split(",");
+				const mediaBreakpoint = paramsArray[1];
+				const mediaType = paramsArray[2];
+				const matchMedia = window.matchMedia(paramsArray[0]);
+
+				// Объекты с нужными условиями
+				const spollersArray = breakpointsArray.filter(function (item) {
+					if (item.value === mediaBreakpoint && item.type === mediaType) {
+						return true;
+					}
+				});
+				// Событие
+				matchMedia.addListener(function () {
+					initSpollers(spollersArray, matchMedia);
+				});
+				initSpollers(spollersArray, matchMedia);
+			});
+		}
+		// Инициализация
+		function initSpollers(spollersArray, matchMedia = false) {
+			spollersArray.forEach(spollersBlock => {
+				spollersBlock = matchMedia ? spollersBlock.item : spollersBlock;
+				if (matchMedia.matches || !matchMedia) {
+					spollersBlock.classList.add('_init');
+					initSpollerBody(spollersBlock);
+					spollersBlock.addEventListener("click", setSpollerAction);
+				} else {
+					spollersBlock.classList.remove('_init');
+					initSpollerBody(spollersBlock, false);
+					spollersBlock.removeEventListener("click", setSpollerAction);
+				}
+			});
+		}
+		// Работа с контентом
+		function initSpollerBody(spollersBlock, hideSpollerBody = true) {
+			const spollerTitles = spollersBlock.querySelectorAll('[data-spoller]');
+			if (spollerTitles.length > 0) {
+				spollerTitles.forEach(spollerTitle => {
+					if (hideSpollerBody) {
+						spollerTitle.removeAttribute('tabindex');
+						if (!spollerTitle.classList.contains('_active')) {
+							spollerTitle.nextElementSibling.hidden = true;
+						}
+					} else {
+						spollerTitle.setAttribute('tabindex', '-1');
+						spollerTitle.nextElementSibling.hidden = false;
+					}
+				});
+			}
+		}
+		function setSpollerAction(e) {
+			const el = e.target;
+			if (el.hasAttribute('data-spoller') || el.closest('[data-spoller]')) {
+				const spollerTitle = el.hasAttribute('data-spoller') ? el : el.closest('[data-spoller]');
+				const spollersBlock = spollerTitle.closest('[data-spollers]');
+				const oneSpoller = spollersBlock.hasAttribute('data-one-spoller') ? true : false;
+				if (!spollersBlock.querySelectorAll('._slide').length) {
+					if (oneSpoller && !spollerTitle.classList.contains('_active')) {
+						hideSpollersBody(spollersBlock);
+					}
+					spollerTitle.classList.toggle('_active');
+					_slideToggle(spollerTitle.nextElementSibling, 500);
+				}
+				e.preventDefault();
+			}
+		}
+		function hideSpollersBody(spollersBlock) {
+			const spollerActiveTitle = spollersBlock.querySelector('[data-spoller]._active');
+			if (spollerActiveTitle) {
+				spollerActiveTitle.classList.remove('_active');
+				_slideUp(spollerActiveTitle.nextElementSibling, 500);
+			}
+		}
+	}
+
+	let _slideUp = (target, duration = 500) => {
+		if (!target.classList.contains('_slide')) {
+			target.classList.add('_slide');
+			target.style.transitionProperty = 'height, margin, padding';
+			target.style.transitionDuration = duration + 'ms';
+			target.style.height = target.offsetHeight + 'px';
+			target.offsetHeight;
+			target.style.overflow = 'hidden';
+			target.style.height = 0;
+			target.style.paddingTop = 0;
+			target.style.paddingBottom = 0;
+			target.style.marginTop = 0;
+			target.style.marginBottom = 0;
+			window.setTimeout(() => {
+				target.hidden = true;
+				target.style.removeProperty('height');
+				target.style.removeProperty('padding-top');
+				target.style.removeProperty('padding-bottom');
+				target.style.removeProperty('margin-top');
+				target.style.removeProperty('margin-bottom');
+				target.style.removeProperty('overflow');
+				target.style.removeProperty('transition-duration');
+				target.style.removeProperty('transition-property');
+				target.classList.remove('_slide');
+			}, duration);
+		}
+	}
+	let _slideDown = (target, duration = 500) => {
+		if (!target.classList.contains('_slide')) {
+			target.classList.add('_slide');
+			if (target.hidden) {
+				target.hidden = false;
+			}
+			let height = target.offsetHeight;
+			target.style.overflow = 'hidden';
+			target.style.height = 0;
+			target.style.paddingTop = 0;
+			target.style.paddingBottom = 0;
+			target.style.marginTop = 0;
+			target.style.marginBottom = 0;
+			target.offsetHeight;
+			target.style.transitionProperty = "height, margin, padding";
+			target.style.transitionDuration = duration + 'ms';
+			target.style.height = height + 'px';
+			target.style.removeProperty('padding-top');
+			target.style.removeProperty('padding-bottom');
+			target.style.removeProperty('margin-top');
+			target.style.removeProperty('margin-bottom');
+			window.setTimeout(() => {
+				target.style.removeProperty('height');
+				target.style.removeProperty('overflow');
+				target.style.removeProperty('transition-duration');
+				target.style.removeProperty('transition-property');
+				target.classList.remove('_slide');
+			}, duration);
+		}
+	}
+	let _slideToggle = (target, duration = 500) => {
+		if (target.hidden) {
+			return _slideDown(target, duration);
+		} else {
+			return _slideUp(target, duration);
+		}
+	}
+}
+mySpollers(); // СПОЙЛЕРЫ
+
+function myBurger() {
+	if (document.getElementById("header-menu")) {
+		const header = document.querySelector(".header");
+		const burgerOpen = document.getElementById("menu-open");
+		const burgerContent = document.getElementById("menu-content");
+		const body = document.querySelector("body");
+
+		if (burgerOpen && burgerContent && header) {
+			burgerOpen.addEventListener("click", function () {
+				header.classList.toggle("_active");
+				burgerContent.classList.toggle("_active");
+				burgerOpen.classList.toggle("_active");
+				body.classList.toggle("_lock-scroll");
+			});
+
+			if (document.querySelector("[data-popup-open]")) {
+				function popupTarget() {
+					const buttons = document.querySelectorAll("[data-popup-open]")
+
+					buttons.forEach(button => {
+						button.addEventListener("click", function () {
+							header.classList.remove("_active");
+							burgerContent.classList.remove("_active");
+							burgerWrap.classList.remove("_active");
+						});
+					});
+				}
+				popupTarget()
+			}
+		}
+	}
+}
+myBurger(); // МЕНЮ БУРГЕР
+
+function myForms() {
+	const forms = document.querySelectorAll("form");
+
+	if (forms.length > 0) {
+		let error = 0;
+
+		let textError;
+		let ErrorNullValue = "This is a required field";
+
+		forms.forEach(form => {
+			const inputs = form.querySelectorAll("input");
+			const textareas = form.querySelectorAll("textarea");
+			const checkboxs = form.querySelectorAll('input[type="checkbox"]');
+			const phones = form.querySelectorAll('input[type="tel"]');
+
+			if (form.classList.contains("_required")) {
+				form.addEventListener("submit", formValid);
+				inputs.forEach(input => {
+					input.addEventListener("focus", formFocus);
+				});
+				textareas.forEach(textarea => {
+					textarea.addEventListener("focus", formFocus);
+				});
+				inputs.forEach(input => {
+					input.addEventListener("blur", function (e) {
+						const elementTarget = e.target;
+
+						if (!elementTarget.classList.contains("_invalid")) {
+							elementTarget.classList.add("_invalid");
+
+							textError = this.getAttribute("data-form-prompt");
+							if (textError === null || textError === "") {
+								textError = `${ErrorNullValue}`;
+							}
+
+							if (input.value.match(/^[ ]+$/)) {
+								input.classList.add("_invalid");
+								error++;
+								input.value = '';
+							}
+
+							if (!elementTarget.classList.contains("_email") && !elementTarget.classList.contains("_password") && !elementTarget.classList.contains("_phone")) {
+								if (input.value.length < 2) {
+									input.classList.add("_invalid");
+									let textInfo = `${textError}`;
+									formBlur(textInfo, e)
+								} else {
+									input.classList.remove("_invalid");
+								}
+							}
+							if (elementTarget.classList.contains("_email")) {
+								const emailValid = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+
+								function validateEmail(value) {
+									return emailValid.test(value);
+								}
+
+								if (!validateEmail(input.value)) {
+									input.classList.add("_invalid");
+									let textInfo = `${textError}`;
+									formBlur(textInfo, e)
+								} else {
+									input.classList.remove("_invalid");
+								}
+							}
+							if (elementTarget.classList.contains("_password")) {
+								const minimum8Chars = /^.{8,}$/;
+								const beginWithoutDigit = /^\D.*$/;
+								const withoutSpecialChars = /^[^-() /]*$/;
+								const containsLetters = /^.*[a-zA-Z]+.*$/;
+								if (minimum8Chars.test(input.value) && beginWithoutDigit.test(input.value) && withoutSpecialChars.test(input.value) && containsLetters.test(input.value)) {
+									input.classList.remove("_invalid");
+								} else {
+									input.classList.add("_invalid");
+									let textInfo = `${textError}`;
+									formBlur(textInfo, e)
+								}
+							}
+							if (elementTarget.classList.contains("_phone")) {
+								phones.forEach(phone => {
+									const requiredPhone = /^[\d\+][\d\(\)\ -]{4,14}\d$/;
+									const valid = requiredPhone.test(phone.value);
+
+									if (!valid) {
+										input.classList.add("_invalid");
+									} else {
+										input.classList.remove("_invalid");
+									}
+								});
+
+								let textInfo = `${textError}`;
+								formBlur(textInfo, e)
+							}
+						}
+					});
+				});
+				textareas.forEach(textarea => {
+					textarea.addEventListener("blur", function (e) {
+						const elementTarget = e.target;
+
+						if (!elementTarget.classList.contains("_invalid")) {
+							textError = this.getAttribute("data-form-prompt");
+							if (textError === null || textError === "") {
+								textError = `${ErrorNullValue}`;
+							}
+
+							if (textarea.value.match(/^[ ]+$/)) {
+								textarea.classList.add("_invalid");
+								error++;
+								textarea.value = '';
+							}
+
+							if (textarea.value.length < 2) {
+								textarea.classList.add("_invalid");
+								let textInfo = `${textError}`;
+
+								if (textarea.classList.contains("_invalid")) {
+									if (textarea.parentElement.querySelectorAll(".field__error").length < 1) {
+										const template = `
 											<div class="field__error field-error">
 												<span class="field-error__icon">!</span>
 												<div class="field-error__dropdown">
-													${c}
+													${textInfo}
 												</div>
 											</div>
-											`;a.parentElement.insertAdjacentHTML("beforeEnd",b)}}})}),l.forEach(a=>{a.addEventListener("change",function(){h(a)})}),document.addEventListener("click",function(a){const b=a.target;if(isMobile.any()){const a=document.querySelectorAll(".field-error__icon");0<a.length&&a.forEach(a=>{a.nextElementSibling.classList.contains("_active")?(a.nextElementSibling.classList.remove("_active"),b!=a&&a.nextElementSibling.classList.remove("_active")):b===a&&a.nextElementSibling.classList.add("_active")})}}))})}}myForms(),new WOW({mobile:!1,offset:200}).init();let isMobile={Android:function(){return navigator.userAgent.match(/Android/i)},BlackBerry:function(){return navigator.userAgent.match(/BlackBerry/i)},iOS:function(){return navigator.userAgent.match(/iPhone|iPad|iPod/i)},Opera:function(){return navigator.userAgent.match(/Opera Mini/i)},Windows:function(){return navigator.userAgent.match(/IEMobile/i)},any:function(){return isMobile.Android()||isMobile.BlackBerry()||isMobile.iOS()||isMobile.Opera()||isMobile.Windows()}};isMobile.any()?document.body.classList.add("_touch"):document.body.classList.add("_pc");function showCards(){const a=document.querySelector("[data-show-cards]");a&&a.addEventListener("click",function(){async function b(){if(!a.classList.contains("_active")){a.classList.add("_hidden");const b="./json/cards.json";let c=await fetch("./json/cards.json",{method:"GET"});if(c.ok){let b=await c.json();loadCards(b),a.classList.remove("_hidden"),a.remove()}}}b()})}showCards();function loadCards(a){const b=document.querySelector(".little-column__row");a.cards.forEach(a=>{const c=a.imageUrl,d=a.imageAlt,e=a.label,f=a.title,g=a.strongBy,h=a.animationDelay;let i=`
-		<article class="little-column-row__card wow animate__animated animate__fadeIn"
-			data-wow-duration="1s" data-wow-delay="${h}">
-			<div class="little-column-row__image _ibg"><img src="${c}" alt="${d}"></div>
-			<h5 class="little-column-row__label label">${e}</h5>
-			<h3 class="little-column-row__title">${f}</h3>
-			<strong class="little-column-row__text-strong text-strong">${g}</strong>
-		</article>
-		`;b.insertAdjacentHTML("beforeEnd",i)})}
+											`;
+
+										textarea.parentElement.insertAdjacentHTML("beforeEnd", template);
+									}
+								} else {
+									textarea.parentElement.querySelectorAll(".field__error").forEach(error => {
+										error.remove()
+									});
+								}
+							}
+						}
+					});
+				});
+				checkboxs.forEach(checkbox => {
+					checkbox.addEventListener("change", function () {
+						validCheckbox(checkbox)
+					});
+				});
+
+				document.addEventListener("click", function (e) {
+					const elementTarget = e.target;
+
+					if (isMobile.any()) {
+						const iconErrors = document.querySelectorAll(".field-error__icon");
+						if (iconErrors.length > 0) {
+							iconErrors.forEach(iconError => {
+								if (!iconError.nextElementSibling.classList.contains("_active")) {
+									if (elementTarget === iconError) {
+										iconError.nextElementSibling.classList.add("_active");
+									}
+								} else {
+									iconError.nextElementSibling.classList.remove("_active");
+
+									if (elementTarget != iconError) {
+										iconError.nextElementSibling.classList.remove("_active");
+									}
+								}
+							});
+						}
+					}
+				});
+			}
+
+			function formBlur(textInfo, e) {
+				const elementTarget = e.target;
+
+				if (elementTarget.classList.contains("_invalid")) {
+					if (elementTarget.parentElement.querySelectorAll(".field__error").length < 1) {
+						const template = `
+							<div class="field__error field-error">
+								<span class="field-error__icon">!</span>
+								<div class="field-error__dropdown">
+									${textInfo}
+								</div>
+							</div>
+							`;
+
+						elementTarget.parentElement.insertAdjacentHTML("beforeEnd", template);
+					}
+				} else {
+					elementTarget.parentElement.querySelectorAll(".field__error").forEach(error => {
+						error.remove()
+					});
+				}
+			}
+
+			function formFocus(e) {
+				const elementTarget = e.target;
+				if (elementTarget.classList.contains("_invalid")) {
+					elementTarget.classList.remove("_invalid");
+					elementTarget.parentElement.querySelectorAll(".field__error").forEach(error => {
+						error.remove()
+					});
+				}
+			}
+
+			function validCheckbox(checkbox) {
+				if (checkbox.classList.contains("_required")) {
+					textError = checkbox.getAttribute("data-form-prompt");
+					if (textError === null || textError === "") {
+						textError = `${ErrorNullValue}`;
+					}
+
+					if (checkbox.checked === true) {
+						checkbox.classList.remove("_invalid");
+						checkbox.parentElement.querySelectorAll(".field__error").forEach(error => {
+							error.remove()
+						});
+					} else {
+						checkbox.classList.add("_invalid");
+						error++;
+						let textInfo = `${textError}`;
+
+						if (checkbox.parentElement.querySelectorAll(".field__error").length < 1) {
+							const template = `
+										<div class="field__error field-error">
+											<span class="field-error__icon">!</span>
+											<div class="field-error__dropdown">
+												${textInfo}
+											</div>
+										</div>
+										`;
+
+							checkbox.parentElement.insertAdjacentHTML("beforeEnd", template);
+						}
+					}
+				}
+			}
+
+			function formValid(e) {
+				inputs.forEach(input => {
+					if (input.classList.contains("_required")) {
+						textError = input.getAttribute("data-form-prompt");
+						if (textError === null || textError === "") {
+							textError = `${ErrorNullValue}`;
+						}
+
+						validAllInputs()
+
+						if (!input.classList.contains("_email") && !input.classList.contains("_password") && !input.classList.contains("_phone") && !input.classList.contains("_name")) {
+							let textInfo = `${textError}`;
+							addError(textInfo)
+						}
+
+						if (input.classList.contains("_email")) {
+							validEmail()
+						}
+						if (input.classList.contains("_password")) {
+							validPassword()
+						}
+						if (input.classList.contains("_phone")) {
+							validPhone()
+						}
+
+						function validEmail() {
+							const emailValid = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+
+							function validateEmail(value) {
+								return emailValid.test(value);
+							}
+
+							if (!validateEmail(input.value)) {
+								input.classList.add("_invalid");
+								error++;
+							} else {
+								input.classList.remove("_invalid");
+							}
+
+							let textInfo = `${textError}`;
+							addError(textInfo)
+						}
+
+						function validPassword() {
+							const minimum8Chars = /^.{8,}$/;
+							const beginWithoutDigit = /^\D.*$/;
+							const withoutSpecialChars = /^[^-() /]*$/;
+							const containsLetters = /^.*[a-zA-Z]+.*$/;
+
+							if (minimum8Chars.test(input.value) &&
+								beginWithoutDigit.test(input.value) &&
+								withoutSpecialChars.test(input.value) &&
+								containsLetters.test(input.value)) {
+								input.classList.remove("_invalid");
+							} else {
+								input.classList.add("_invalid");
+								error++;
+							}
+
+							let textInfo = `${textError}`;
+							addError(textInfo)
+						}
+
+						function validPhone() {
+							phones.forEach(phone => {
+								const requiredPhone = /^[\d\+][\d\(\)\ -]{4,14}\d$/;
+								const valid = requiredPhone.test(phone.value);
+
+								if (!valid) {
+									input.classList.add("_invalid");
+									error++;
+								} else {
+									input.classList.remove("_invalid");
+								}
+							});
+
+							let textInfo = `${textError}`;
+							addError(textInfo)
+						}
+
+						function validAllInputs() {
+							if (input.value.length < 2) {
+								input.classList.add("_invalid");
+								error++;
+							} else {
+								input.classList.remove("_invalid");
+							}
+
+							if (input.value.match(/^[ ]+$/)) {
+								input.classList.add("_invalid");
+								error++;
+								input.value = '';
+							}
+						}
+
+						function addError(textInfo) {
+							if (input.classList.contains("_invalid")) {
+								if (input.parentElement.querySelectorAll(".field__error").length < 1) {
+									const template = `
+										<div class="field__error field-error">
+											<span class="field-error__icon">!</span>
+											<div class="field-error__dropdown">
+												${textInfo}
+											</div>
+										</div>
+										`;
+
+									input.parentElement.insertAdjacentHTML("beforeEnd", template);
+								}
+							} else {
+								input.parentElement.querySelectorAll(".field__error").forEach(error => {
+									error.remove()
+								});
+							}
+						}
+					}
+				});
+				textareas.forEach(textarea => {
+					if (textarea.classList.contains("_required")) {
+						textError = textarea.getAttribute("data-form-prompt");
+						if (textError === null || textError === "") {
+							textError = `${ErrorNullValue}`;
+						}
+
+						if (textarea.value.match(/^[ ]+$/)) {
+							textarea.classList.add("_invalid");
+							error++;
+							textarea.value = '';
+						}
+
+						if (textarea.value.length < 2) {
+							textarea.classList.add("_invalid");
+
+							let textInfo = `${textError}`;
+
+							if (textarea.classList.contains("_invalid")) {
+								if (textarea.parentElement.querySelectorAll(".field__error").length < 1) {
+									const template = `
+										<div class="field__error field-error">
+											<span class="field-error__icon">!</span>
+											<div class="field-error__dropdown">
+												${textInfo}
+											</div>
+										</div>
+										`;
+
+									textarea.parentElement.insertAdjacentHTML("beforeEnd", template);
+								}
+							} else {
+								textarea.parentElement.querySelectorAll(".field__error").forEach(error => {
+									error.remove()
+								});
+							}
+						} else {
+							textarea.classList.remove("_invalid");
+						}
+					}
+				});
+				checkboxs.forEach(checkbox => {
+					validCheckbox(checkbox)
+				});
+
+				const invalids = form.querySelectorAll("._invalid");
+				if (invalids.length < 1) {
+					error = 0;
+				}
+
+				if (error > 0) {
+					e.preventDefault();
+				}
+			}
+		});
+	}
+}
+myForms(); // ВАЛИДАЦИЯ ФОРМЫ
+
+//< " СКРИПТЫ " >=============================================================================================================>//
+
+new WOW({
+	mobile: false,
+	offset: 200,
+}).init();
+
+let isMobile = {
+	Android: function () { return navigator.userAgent.match(/Android/i); },
+	BlackBerry: function () { return navigator.userAgent.match(/BlackBerry/i); },
+	iOS: function () { return navigator.userAgent.match(/iPhone|iPad|iPod/i); },
+	Opera: function () { return navigator.userAgent.match(/Opera Mini/i); },
+	Windows: function () { return navigator.userAgent.match(/IEMobile/i); },
+	any: function () { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); }
+};
+
+if (isMobile.any()) {
+	document.body.classList.add("_touch");
+} else {
+	document.body.classList.add("_pc");
+}
+
+//< " СКРИПТЫ " >=============================================================================================================>//
+
+function showCards() {
+	const btn = document.querySelector("[data-show-cards]");
+
+	if (btn) {
+		btn.addEventListener("click", function () {
+			async function getCards() {
+				if (!btn.classList.contains('_active')) {
+
+					btn.classList.add('_hidden');
+					const file = "./json/cards.json";
+
+					let response = await fetch(file, {
+						method: "GET"
+					});
+
+					if (response.ok) {
+						let result = await response.json();
+						loadCards(result);
+						btn.classList.remove('_hidden');
+						btn.remove();
+					}
+				}
+			}
+			getCards()
+		});
+	}
+}
+showCards()
+
+function loadCards(data) {
+
+	const column = document.querySelector('.little-column__row');
+
+	data.cards.forEach(item => {
+		const imageUrl = item.imageUrl;
+		const imageAlt = item.imageAlt;
+		const label = item.label;
+		const title = item.title;
+		const strongBy = item.strongBy;
+		const animationDelay = item.animationDelay;
+
+		let template = `
+			<article class="little-column-row__card wow animate__animated animate__fadeIn"
+				data-wow-duration="1s" data-wow-delay="${animationDelay}">
+				<a class="little-column-row__image _ibg" href="#">
+					<img src="${imageUrl}" alt="${imageAlt}">
+				</a>
+				<h5 class="little-column-row__label label">${label}</h5>
+				<a class="little-column-row__title" href="#">${title}</a>
+				<strong class="little-column-row__text-strong text-strong">${strongBy}</strong>
+			</article>
+		`
+
+		column.insertAdjacentHTML("beforeEnd", template);
+	});
+}
