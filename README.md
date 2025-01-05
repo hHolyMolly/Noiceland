@@ -1,17 +1,4 @@
-# Noiceland
-Анимированная вёрстка лендинга - Noiceland. Вёрстка реализованная на чистом Html/Css/JavaScript, код выполнен по методологии БЭМ.
+![Preview](https://github.com/hHolyMolly/Noiceland/blob/main/img/Preview.png)
 
-
-### Используемые технологии:
-- HTML/CSS;
-- JS;
-- Подгрузка файлов с json;
-- Резиновый адаптив;
-- Препроцессор SCSS;
-- Бэм;
-- Анимация при скролле;
-- Flexbox, Grid;
-- Pixel Perfect.
-
-
-Ссылка на макет - https://www.figma.com/file/10NCr58WRzeNLOLwZ56uPY/Noiceland-%2B?node-id=0%3A1&t=sBE2VgJrmOEdNbVe-0
+# Description:
+A responsive website with custom Gulp build, combining interactivity and modern development practices. It dynamically loads data from JSON files, making content updates easy. The project is fully responsive and cross-browser compatible, ensuring proper display on any device. Features include dynamic content loading, SCSS with BEM architecture, smooth scroll animations, and flexible layout using Flexbox and Grid. The code is optimized, pixel-perfect, and structured for scalability.
